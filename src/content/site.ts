@@ -7,7 +7,10 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://brainmap.example",
   description:
     "Printable planners and Brain Map OS — a private, encrypted second brain to track your habits, goals, money and life in one place.",
-  email: "focuswork.in@gmail.com", // TODO: replace with the new Brain Map support email
+  email: "support@creativebee.app",
+  phone: "9988440766",
+  phoneDisplay: "+91 99884 40766",
+  phoneHref: "tel:+919988440766",
   announcements: [
     "ONE MONTH CAN CHANGE EVERYTHING",
     "INSTANT ACCESS · PRINT IT · USE IT TODAY",

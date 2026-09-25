@@ -20,6 +20,8 @@ export default function ContactPage() {
           <div className="h-full rounded-2xl border border-line p-6 transition hover:-translate-y-1 hover:shadow-lg">
             <h2 className="font-bold">Customer support email</h2>
             <a href={`mailto:${site.email}`} className="link-grow mt-4 inline-block text-lg font-bold [overflow-wrap:anywhere]">✉️ {site.email}</a>
+            <h2 className="mt-6 font-bold">Call us</h2>
+            <a href={site.phoneHref} className="link-grow mt-3 inline-block text-lg font-bold">📞 {site.phoneDisplay}</a>
             <p className="mt-3 text-sm text-ink/70">Our support team will respond to your queries within <b>24 hours</b> (Monday to Saturday).</p>
           </div>
         </StaggerItem>
