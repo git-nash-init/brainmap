@@ -10,7 +10,7 @@ import { Countdown } from "@/components/ui/Countdown";
 export function goCheckout(id: keyof typeof CHECKOUT) {
   const url = CHECKOUT[id];
   // No payment link yet -> demo checkout (simulated payment that ends on the success page)
-  window.location.href = !url || url === "#" ? `/checkout/demo?product=${id}` : url;
+  window.location.href = !url || url === "#" ? `/checkout?product=${id}` : url;
 }
 
 function SaveBadge({ pct }: { pct: number }) {

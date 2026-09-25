@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { CHECKOUT, type CheckoutKey } from "@/content/site";
 import { recordPurchase } from "@/lib/fulfil";
+import { easebuzzConfigured } from "@/lib/payments";
 
 /**
  * DEMO payment: no money moves. Creates a real (test) order + account + app login so the whole
@@ -11,6 +12,7 @@ export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
   const key = body?.product as CheckoutKey | undefined;
   if (!key || !(key in CHECKOUT)) return NextResponse.json({ error: "Unknown product" }, { status: 400 });
+  if (easebuzzConfigured()) return NextResponse.json({ error: "Demo checkout is disabled" }, { status: 403 });
   if (CHECKOUT[key] !== "#") return NextResponse.json({ error: "Demo checkout is disabled" }, { status: 403 });
   if (typeof body.email !== "string" || !/^\S+@\S+\.\S+$/.test(body.email)) return NextResponse.json({ error: "Enter a valid email" }, { status: 400 });
 
