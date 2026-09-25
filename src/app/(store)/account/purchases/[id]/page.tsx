@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth";
@@ -27,7 +28,7 @@ export default async function PurchasePage({ params }: PageProps<"/account/purch
   const effective = [...new Set([...ids, ...(bundled ?? []).map((b) => b.product_id)])];
 
   const [{ data: templates }, { data: creds }, { data: setting }] = await Promise.all([
-    supabase.from("templates").select("id, title, category, product_id, sort").in("product_id", effective).order("sort"),
+    supabase.from("templates").select("id, title, category, product_id, storage_path, sort").in("product_id", effective).order("sort"),
     supabase.from("app_credentials").select("id, username, temp_password, password_changed, issued_at").eq("order_id", id),
     supabase.from("site_settings").select("value").eq("key", "app_url").maybeSingle(),
   ]);
@@ -76,7 +77,9 @@ export default async function PurchasePage({ params }: PageProps<"/account/purch
             {templates!.map((t) => (
               <StaggerItem key={t.id}>
                 <div className="flex h-full flex-col rounded-2xl border border-line bg-white p-4 transition hover:-translate-y-1 hover:shadow-lg">
-                  <div className="grid aspect-[4/3] place-items-center rounded-xl bg-lime/40 font-display text-3xl font-extrabold text-ink/30">PDF</div>
+                  <a href={`/api/templates/${t.id}/download?inline=1`} target="_blank" rel="noopener" aria-label={`Preview ${t.title}`} className="zoom-img relative block aspect-[4/3] overflow-hidden rounded-xl bg-mist">
+                    <Image src={`/templates-preview/${t.storage_path.split("/").pop()!.replace(/\.pdf$/i, "")}.jpg`} alt={`${t.title} template preview`} fill sizes="(min-width:1024px) 300px, (min-width:640px) 45vw, 90vw" className="object-cover" />
+                  </a>
                   <p className="mt-3 text-[11px] font-bold uppercase tracking-wider text-brand">{t.category}</p>
                   <h3 className="font-bold leading-snug">{t.title}</h3>
                   <div className="mt-auto flex gap-2 pt-4">
