@@ -909,12 +909,27 @@ function renderAI(){
 function connectAI(){var k=(ge('ai-key-inp')||{}).value||'';if(!k.trim()){toast('Please enter your API key','error');return;}S.aiKey=k.trim();DB.set('sb_ai_key',S.aiKey);toast('AI connected! \ud83e\udde0','success');renderAI();}
 function changeAIKey(){S.aiKey='';DB.del('sb_ai_key');renderAI();}
 async function testAI(){try{toast('Testing...');var r=await callAI('Reply with exactly: Connection successful!');toast('\u2705 '+r.slice(0,50),'success');}catch(e){toast('\u274c '+e.message,'error');}}
+// Google Gemini Interactions API (replaces the retired models/gemini-2.0-flash generateContent call).
+// Docs: https://ai.google.dev/gemini-api/docs/get-started  ·  first model that exists is used.
+var AI_MODELS=['gemini-3.8-flash','gemini-3.5-flash'];
+function aiText(data){
+  var out=[];
+  (data.steps||[]).forEach(function(st){if(st.type==='model_output'&&st.content)st.content.forEach(function(c){if(c.type==='text'&&c.text)out.push(c.text);});});
+  if(!out.length&&data.output_text)out.push(data.output_text);
+  return out.join('');
+}
 async function callAI(prompt){
   if(!S.aiKey)throw new Error('No API key. Set up AI first.');
-  var res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+S.aiKey,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
-  if(!res.ok){var err=await res.json();throw new Error((err.error&&err.error.message)||'API error '+res.status);}
-  var data=await res.json();
-  return(data.candidates&&data.candidates[0]&&data.candidates[0].content&&data.candidates[0].content.parts&&data.candidates[0].content.parts[0]&&data.candidates[0].content.parts[0].text)||'No response';
+  var last;
+  for(var i=0;i<AI_MODELS.length;i++){
+    var res=await fetch('https://generativelanguage.googleapis.com/v1beta/interactions',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':S.aiKey},body:JSON.stringify({model:AI_MODELS[i],input:[{type:'text',text:prompt}]})});
+    if(res.ok){var data=await res.json();return aiText(data)||'No response';}
+    var err={};try{err=await res.json();}catch(e){}
+    last=new Error((err.error&&err.error.message)||'API error '+res.status);
+    // only try the next model when this one is retired / unknown; real errors (bad key, quota) are shown as-is
+    if(res.status!==404&&!/no longer available|not found|not supported/i.test(last.message))throw last;
+  }
+  throw last;
 }
 function buildCtx(){
   var p=S.profile||{};var areas=calcAreaScores();

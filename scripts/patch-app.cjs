@@ -1,3 +1,5 @@
+// ONE-OFF (historical): built the first public/app/index.html from the original file. DO NOT re-run — public/app/index.html
+// is now maintained by hand (Gemini Interactions API, login/sync, modal fixes) and re-running would overwrite those changes.
 // One-off: builds public/app/index.html from the original "Second Brain OS" single file.
 // Usage: node scripts/patch-app.cjs "<path to original index.html>"
 const fs = require("fs");
