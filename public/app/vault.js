@@ -68,12 +68,18 @@
   }
 
   // ── network ────────────────────────────────────────────────────────────────
+  // every request gets a timeout so a stalled connection can never leave a screen spinning forever
+  function tfetch(u, o) {
+    var c = new AbortController(), t = setTimeout(function () { c.abort(); }, 25000);
+    o = o || {}; o.signal = c.signal;
+    return fetch(u, o).then(function (r) { clearTimeout(t); return r; }, function (e) { clearTimeout(t); throw e; });
+  }
   function saveSession(s) { session = s; if (s) localStorage.setItem(LS_SESSION, JSON.stringify(s)); else localStorage.removeItem(LS_SESSION); }
   function toSession(j) { return { access_token: j.access_token, refresh_token: j.refresh_token, expires_at: Math.floor(Date.now() / 1000) + (j.expires_in || 3600), user: j.user }; }
   function authCall(path, body, token) {
     var h = { apikey: CFG.key, 'Content-Type': 'application/json' };
     if (token) h.Authorization = 'Bearer ' + token;
-    return fetch(CFG.url + path, { method: body === undefined ? 'GET' : 'POST', headers: h, body: body === undefined ? undefined : JSON.stringify(body) });
+    return tfetch(CFG.url + path, { method: body === undefined ? 'GET' : 'POST', headers: h, body: body === undefined ? undefined : JSON.stringify(body) });
   }
   var refreshing = null;
   function refresh() {
@@ -90,7 +96,7 @@
       var h = { apikey: CFG.key, 'Content-Type': 'application/json' };
       for (var k in (opts.headers || {})) h[k] = opts.headers[k];
       if (session) h.Authorization = 'Bearer ' + session.access_token;
-      return fetch(CFG.url + path, { method: opts.method || 'GET', headers: h, body: opts.body });
+      return tfetch(CFG.url + path, { method: opts.method || 'GET', headers: h, body: opts.body });
     };
     var pre = session && session.expires_at * 1000 - Date.now() < 60000 ? refresh() : Promise.resolve();
     return pre.then(go).then(function (r) {
@@ -367,6 +373,29 @@
   function wipeCloud() {
     return (ready ? api('/rest/v1/vault_items?user_id=eq.' + uid, { method: 'DELETE', headers: { Prefer: 'return=minimal' } }) : Promise.resolve()).then(function () { localKeys().forEach(function (k) { localStorage.removeItem(k); }); localStorage.removeItem(LS_DIRTY); localStorage.removeItem(LS_SYNC); });
   }
+
+  // ── show/hide password buttons (applies to every <input type=password> in the app, now and later) ──
+  var EYE = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var EYE_OFF = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 6.1A9.8 9.8 0 0 1 12 6c5 0 8.5 4 9.5 6a12.5 12.5 0 0 1-2.6 3.3M6.6 6.7A12.3 12.3 0 0 0 2.5 12c1 2 4.5 6 9.5 6a9.7 9.7 0 0 0 4.1-.9"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
+  function addEye(inp) {
+    if (inp.getAttribute('data-eye') || !inp.parentNode) return;
+    inp.setAttribute('data-eye', '1');
+    var cs = getComputedStyle(inp), wrap = document.createElement('span');
+    wrap.style.cssText = 'display:block;position:relative;width:' + (cs.width === 'auto' ? '100%' : '100%') + ';margin:' + cs.margin;
+    inp.parentNode.insertBefore(wrap, inp); wrap.appendChild(inp);
+    inp.style.margin = '0'; inp.style.paddingRight = '46px';
+    var b = document.createElement('button');
+    b.type = 'button'; b.innerHTML = EYE; b.setAttribute('aria-label', 'Show password');
+    b.style.cssText = 'position:absolute;right:6px;top:50%;transform:translateY(-50%);width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:none;border:0;border-radius:8px;color:#a1a1aa;cursor:pointer;padding:0';
+    b.onclick = function (e) { e.preventDefault(); var show = inp.type === 'password'; inp.type = show ? 'text' : 'password'; b.innerHTML = show ? EYE_OFF : EYE; b.setAttribute('aria-label', show ? 'Hide password' : 'Show password'); b.style.color = show ? '#ffffff' : '#a1a1aa'; inp.focus(); };
+    wrap.appendChild(b);
+  }
+  function scanEyes(root) { var l = (root || document).querySelectorAll ? (root || document).querySelectorAll('input[type=password]') : []; for (var i = 0; i < l.length; i++) addEye(l[i]); }
+  function watchPasswords() {
+    scanEyes(document);
+    new MutationObserver(function () { scanEyes(document); }).observe(document.documentElement, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watchPasswords); else watchPasswords();
 
   // ── public API ─────────────────────────────────────────────────────────────
   window.Vault = {

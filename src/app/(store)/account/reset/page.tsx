@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 
 export default function ResetPage() {
   const router = useRouter();
@@ -35,7 +36,7 @@ export default function ResetPage() {
         <p className="mt-4 text-sm text-ink/65">Open this page from the link in your email.</p>
       ) : (
         <form onSubmit={submit} className="mt-8 space-y-4">
-          <input type="password" autoComplete="new-password" placeholder="New password" value={pw} onChange={(e) => setPw(e.target.value)} className="h-12 w-full rounded-lg border border-ink/25 px-4 text-sm outline-none focus:border-ink focus:ring-2 focus:ring-lime" />
+          <PasswordInput autoComplete="new-password" placeholder="New password" value={pw} onChange={(e) => setPw(e.target.value)} className="h-12 w-full rounded-lg border border-ink/25 px-4 text-sm outline-none focus:border-ink focus:ring-2 focus:ring-lime" />
           {err && <p role="alert" className="text-sm text-alert">{err}</p>}
           <Button type="submit" size="lg" block>Save password</Button>
         </form>

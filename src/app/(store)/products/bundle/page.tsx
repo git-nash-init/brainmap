@@ -6,7 +6,7 @@ import { TrustStrip } from "@/components/shop/TrustStrip";
 import { Accordion } from "@/components/ui/Accordion";
 import { Container, SectionHeading } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
-import { bundle, habit, secondBrain, inr } from "@/content/products";
+import { allTemplates, bundle, secondBrain, inr } from "@/content/products";
 
 export const metadata: Metadata = {
   title: "The Brain Map Bundle — planners + private app",
@@ -24,7 +24,7 @@ const rows: [string, boolean, boolean][] = [
 ];
 
 export default function BundlePage() {
-  const total = habit.variants[0].price + secondBrain.variants[0].price;
+  const total = allTemplates.price + secondBrain.variants[0].price;
   const b = bundle.variants[0];
   return (
     <>
@@ -36,7 +36,7 @@ export default function BundlePage() {
           <BuyBox
             product={bundle}
             kicker="Best value"
-            bullets={["🖨️ Full Planning System — 20+ printable templates.", "📱 Brain Map OS — lifetime access with your own login.", "🔐 End-to-end encrypted cloud vault."]}
+            bullets={["🖨️ All Templates — all 24 printable planners & trackers.", "📱 Brain Map OS — lifetime access with your own login.", "🔐 End-to-end encrypted cloud vault."]}
             timer
             note={`Bought separately: ${inr(total)}. Bundle: ${inr(b.price)}.`}
           />
@@ -49,9 +49,9 @@ export default function BundlePage() {
           <div className="grid gap-6 md:grid-cols-2">
             <Reveal className="rounded-3xl bg-white p-6 shadow-sm md:p-8">
               <Image src="/images/habit-main.png" alt="" width={420} height={420} className="mx-auto h-56 w-auto rounded-2xl object-cover" />
-              <h3 className="mt-5 font-display text-2xl font-extrabold">Full Planning System</h3>
-              <p className="text-sm text-ink/65">Monthly wheel + 20+ printable templates in your account, ready to download and edit.</p>
-              <p className="mt-3 text-sm"><s className="text-ink/45">{inr(habit.variants[0].mrp)}</s> <b>{inr(habit.variants[0].price)}</b></p>
+              <h3 className="mt-5 font-display text-2xl font-extrabold">All Templates</h3>
+              <p className="text-sm text-ink/65">Habit wheel, planners and trackers — all 24 printable templates in your account, ready to download and edit.</p>
+              <p className="mt-3 text-sm"><s className="text-ink/45">{inr(allTemplates.mrp)}</s> <b>{inr(allTemplates.price)}</b></p>
             </Reveal>
             <Reveal delay={0.1} className="rounded-3xl bg-ink p-6 text-white md:p-8">
               <div className="flex h-56 justify-center overflow-hidden"><PhoneMockup className="!w-[190px]" /></div>

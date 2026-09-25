@@ -33,10 +33,10 @@ export const habit: Product = {
   variants: [
     {
       id: "habit-full",
-      label: "Full Planning System",
-      sub: "Monthly Template + 20+ New Templates",
-      price: 399,
-      mrp: 999,
+      label: "All Templates",
+      sub: "Habit wheel + 23 more planners & trackers (PDF)",
+      price: 199,
+      mrp: 499,
       image: "/images/variant-full.webp",
       badge: "Everyone's grabbing this!",
     },
@@ -72,15 +72,18 @@ export const bundle: Product = {
   variants: [
     {
       id: "bundle",
-      label: "Full Planning System + Brain Map OS",
-      sub: "20+ printable templates and lifetime app access",
-      price: 499,
-      mrp: 1998,
+      label: "All Templates + Brain Map OS",
+      sub: "All 24 printable templates and lifetime app access",
+      price: 399,
+      mrp: 1498,
       image: "/images/bundle.jpg",
       badge: "Best value",
     },
   ],
 };
+
+/** The "All Templates" pack (the Habit Tracker product's single option). */
+export const allTemplates = habit.variants.find((v) => v.id === "habit-full")!;
 
 export const catalog: Product[] = [habit, secondBrain, bundle];
 

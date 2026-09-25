@@ -1,10 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from "./config";
 
 /** Supabase client bound to the request's cookies (acts as the signed-in user; RLS applies). */
 export async function createClient() {
   const store = await cookies();
-  return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, {
+  return createServerClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     cookies: {
       getAll: () => store.getAll(),
       setAll(list) {

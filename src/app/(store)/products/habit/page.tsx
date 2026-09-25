@@ -50,13 +50,13 @@ export default function HabitPage() {
           <div className="mt-8 rounded-xl border border-line px-5">
             <Accordion items={details} defaultOpen={0} />
           </div>
-          <p className="mt-5 rounded-xl border-2 border-dashed border-ink/40 p-4 text-sm"><b>VIRAL RIGHT NOW!</b> Our Full Planning System is in high demand. Extra offer on checkout.</p>
+          <p className="mt-5 rounded-xl border-2 border-dashed border-ink/40 p-4 text-sm"><b>VIRAL RIGHT NOW!</b> Our All Templates pack is in high demand. Extra offer on checkout.</p>
         </div>
       </Container>
 
       <section className="py-12">
         <Container>
-          <SectionHeading eyebrow="Full Planning System" title="20+ templates. One wall. One month." />
+          <SectionHeading eyebrow="All Templates" title="24 templates. One wall. One month." />
           <Stagger className="mx-auto grid max-w-4xl grid-cols-2 gap-3 md:grid-cols-4" gap={0.04}>
             {planningTemplates.map((t) => (
               <StaggerItem key={t}>
@@ -107,7 +107,7 @@ export default function HabitPage() {
           <div className="flex flex-col items-center justify-between gap-5 rounded-3xl bg-lime p-8 text-center md:flex-row md:text-left">
             <div>
               <h2 className="font-display text-2xl font-extrabold">Want the paper and the app?</h2>
-              <p className="mt-1 text-sm text-ink/75">Get the Full Planning System plus lifetime Brain Map OS in one bundle.</p>
+              <p className="mt-1 text-sm text-ink/75">Get All Templates plus lifetime Brain Map OS in one bundle.</p>
             </div>
             <ButtonLink href="/products/bundle" size="lg">See the bundle</ButtonLink>
           </div>

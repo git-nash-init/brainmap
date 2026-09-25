@@ -6,6 +6,7 @@ import { useState, type FormEvent } from "react";
 import { catalog, inr, type Variant } from "@/content/products";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 
 const input = "h-12 w-full rounded-lg border border-ink/25 bg-white px-4 text-sm outline-none transition focus:border-ink focus:ring-2 focus:ring-lime";
 
@@ -57,7 +58,7 @@ export function DemoCheckout() {
           <input className={`${input} mt-1.5`} type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
         </label>
         <label className="block text-sm font-semibold">Create a password
-          <input className={`${input} mt-1.5`} type="password" required autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="8+ characters" />
+          <div className="mt-1.5"><PasswordInput className={input} required autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="8+ characters" /></div>
           <span className="mt-1 block text-xs font-normal text-ink/55">You’ll use this to sign in to My Purchases.</span>
         </label>
         <div className="rounded-xl border border-dashed border-ink/30 p-4 text-sm text-ink/70">

@@ -81,7 +81,7 @@ export default function Home() {
             <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand">Featured · Printable</p>
             <h2 className="mt-2 font-display text-4xl font-extrabold uppercase leading-[1.05] tracking-tight">Brain Map Habit Tracker</h2>
             <p className="mt-4 text-[15px] leading-relaxed text-ink/70">A visual 31-day wheel plus 20+ printable planners that turn habits into something you can see. Print it, hang it, fill it in — no motivation required.</p>
-            <p className="mt-5 flex items-baseline gap-3"><b className="text-2xl">Rs. 399</b><s className="text-ink/45">Rs. 999</s><span className="rounded-md bg-brand px-2 py-1 text-[11px] font-bold text-white">SAVE 60%</span></p>
+            <p className="mt-5 flex items-baseline gap-3"><b className="text-2xl">Rs. 199</b><s className="text-ink/45">Rs. 499</s><span className="rounded-md bg-brand px-2 py-1 text-[11px] font-bold text-white">SAVE 60%</span></p>
             <div className="mt-6 flex flex-wrap gap-3">
               <ButtonLink href="/products/habit" size="lg">View details</ButtonLink>
               <ButtonLink href="/products/bundle" variant="outline" size="lg">See the bundle</ButtonLink>

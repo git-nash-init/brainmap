@@ -3,6 +3,7 @@ import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { ButtonLink } from "@/components/ui/Button";
+import { bundle, savePct } from "@/content/products";
 import { PhoneMockup } from "./PhoneMockup";
 
 const words = ["Plan", "it", "on", "paper."];
@@ -64,7 +65,7 @@ export function HomeHero() {
           </motion.div>
           <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.6, type: "spring" }} className="absolute bottom-4 left-[38%] rounded-2xl bg-lime px-4 py-3 text-ink shadow-xl">
             <p className="text-[10px] font-bold uppercase tracking-widest">Bundle saves</p>
-            <p className="font-display text-2xl font-extrabold">75%</p>
+            <p className="font-display text-2xl font-extrabold">{savePct(bundle.variants[0].price, bundle.variants[0].mrp)}%</p>
           </motion.div>
         </div>
       </div>
