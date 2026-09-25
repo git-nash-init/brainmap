@@ -204,7 +204,65 @@ textarea.fi{resize:vertical;min-height:80px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .ani{animation:fadeUp .5s ease both}
 .d1{animation-delay:.05s}.d2{animation-delay:.1s}.d3{animation-delay:.15s}.d4{animation-delay:.2s}.d5{animation-delay:.25s}
-@media(min-width:600px){.page{max-width:480px;left:50%!important}.page{transform:translateX(-50%)}.page.active{transform:translateX(-50%) translateY(0)}#nav,#install-banner{max-width:480px;left:50%;transform:translateX(-50%)}#install-banner{transform:translateX(-50%) translateY(20px)}#install-banner.show{transform:translateX(-50%) translateY(0)}.modal-bg{justify-content:center}.modal{max-width:480px}}
+@media(min-width:600px){.page{width:100%;max-width:640px;left:50%!important;right:auto}.page{transform:translateX(-50%)}.page.active{transform:translateX(-50%) translateY(0)}#nav,#install-banner{width:100%;max-width:640px;left:50%;right:auto;transform:translateX(-50%)}#install-banner{transform:translateX(-50%) translateY(20px)}#install-banner.show{transform:translateX(-50%) translateY(0)}.modal-bg{justify-content:center}.modal{max-width:480px}}
+
+/* ── DESKTOP LAYOUT (>=1024px): left sidebar, wide centred content, centred dialogs. Phones/tablets are unaffected. */
+.nav-brand,.nav-sep,.nav-more{display:none}
+.hp{display:contents}.hgrid2{display:contents}
+@media(min-width:1024px){
+:root{--sw:256px;--cw:1120px}
+#page-tasks,#page-ai,#page-habits,#page-finance,#page-journal,#page-routines{--cw:900px}
+#page-achievements,#page-profile,#page-settings,#page-review,#page-areas{--cw:760px}
+::-webkit-scrollbar{width:8px}
+/* sidebar */
+#nav{top:0;bottom:0;left:0;right:auto;width:var(--sw);max-width:none;height:auto;transform:none;flex-direction:column;align-items:stretch;padding:20px 14px 14px;border-top:0;border-right:1px solid var(--b);background:#090909;backdrop-filter:none;-webkit-backdrop-filter:none;overflow-y:auto}
+.nav-brand{display:block;padding:2px 10px 16px}
+.nav-brand b{display:block;white-space:nowrap;font-family:"Syne",sans-serif;font-size:14.5px;font-weight:800;letter-spacing:-.2px;color:var(--p)}
+.nav-brand b i{font-style:normal;color:#fff}
+.nav-brand small{display:block;margin-top:5px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.nav-items{flex:none;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px}
+.nav-fab{order:-1;width:100%;height:44px;border-radius:12px;margin:0 0 10px;gap:8px;box-shadow:0 6px 22px var(--pg)}
+.nav-fab::after{content:"Quick add";font-size:14px;font-weight:600;color:#fff}
+.nav-item{flex-direction:row;justify-content:flex-start;gap:12px;padding:8px 12px;min-width:0;width:100%;border-radius:12px;font-size:14px}
+.nav-item:hover{background:rgba(255,255,255,.05);color:var(--t)}
+.nav-item.active{background:var(--pd);color:var(--p)}
+.nav-item span{font-size:14px;font-weight:500;letter-spacing:0}
+.nav-item svg{flex-shrink:0}
+.nav-sep{display:block;padding:14px 12px 4px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.nav-more{display:flex}
+.nav-emo{width:22px;text-align:center;font-size:16px;line-height:22px;flex-shrink:0;filter:grayscale(.2)}
+/* content: the page is the scroller; padding centres a column of --cw */
+.page{left:var(--sw)!important;right:0;width:auto;max-width:none;transform:none!important;padding:0 max(16px,calc((100vw - var(--sw) - var(--cw))/2)) 56px}
+.page.active{transform:none!important}
+.brand-hdr>div:first-child{display:none}.brand-hdr{justify-content:flex-end}
+.topbar{padding-top:24px}
+.greet-name{font-size:32px}
+.qstats{overflow:visible}.qstat{flex:1;min-width:0;padding:12px 8px}.qstat-v{font-size:20px;white-space:nowrap}
+/* home: cards flow in two columns */
+.hgrid2{display:block;column-gap:0}
+.hp{display:block;break-inside:avoid;padding-top:20px}
+.hp>.sec-title{margin-top:0}
+/* multi-column lists */
+#goals-list,#notes-list{column-gap:0}
+#goals-list>*,#notes-list>*{break-inside:avoid}
+#goals-list .empty-state,#notes-list .empty-state{column-span:all}
+.sec-title{break-after:avoid}
+/* wider grids */
+.ai-grid{grid-template-columns:repeat(4,1fr)}
+.vision-grid{grid-template-columns:repeat(4,1fr)}
+.kanban-scroll .kcol{flex:1 1 0;min-width:240px}
+/* dialogs instead of bottom sheets */
+.modal-bg{align-items:center;justify-content:center;padding:24px}
+.modal{max-width:520px;max-height:86vh;border-radius:20px;padding-bottom:24px;transform:translateY(16px) scale(.98)}
+.modal-bg.open .modal{transform:none}
+.mhandle{display:none}
+/* quick-add menu pops out next to the sidebar button; install banner sits bottom-right */
+#fab-menu{left:calc(var(--sw) + 10px);bottom:auto;top:78px;transform:none;align-items:flex-start}
+#install-banner{left:auto;right:24px;bottom:24px;width:auto;max-width:420px;transform:translateY(20px)}
+#install-banner.show{transform:none}
+}
+@media(min-width:1280px){#goals-list,#notes-list,.hgrid2{column-count:2}}
+@media(min-width:1600px){:root{--sw:272px;--cw:1240px}#goals-list,#notes-list,.hgrid2{column-count:3}}
 </style>
 </head>
 <body>
@@ -283,22 +341,40 @@ textarea.fi{resize:vertical;min-height:80px}
   </div>
   <div class="greet-sec ani d1"><div class="greet-time" id="greet-time"></div><div class="greet-name" id="greet-name">Loading...</div><div class="greet-sub" id="greet-sub"></div></div>
   <div class="qstats ani d2" id="home-qstats"></div>
+  <div class="hgrid2">
+  <div class="hp">
   <div class="sec-title ani d2">Life Command Center</div>
   <div class="card score-card ani d2" id="home-score-card"></div>
+  </div>
+  <div class="hp">
   <div class="sec-title ani d3">Today&#39;s Focus</div>
   <div class="card focus-card ani d3" id="home-focus-card"></div>
+  </div>
+  <div class="hp">
   <div class="sec-title ani d3">Today&#39;s Habits</div>
   <div class="card ani d3" id="home-habits-card"></div>
+  </div>
+  <div class="hp">
   <div class="sec-title ani d3">Streaks</div>
   <div class="card ani d3" id="home-streaks-card"></div>
+  </div>
+  <div class="hp">
   <div class="sec-title ani d4">Recent Notes</div>
   <div class="card ani d4" id="home-notes-card"></div>
+  </div>
+  <div class="hp">
   <div class="sec-title ani d4">Achievements</div>
   <div class="card ani d4" id="home-ach-card"></div>
+  </div>
+  <div class="hp">
   <div class="sec-title ani d5">This Week</div>
   <div class="card ani d5" id="home-week-card"></div>
+  </div>
+  <div class="hp">
   <div class="sec-title ani d5">AI Coach</div>
   <div class="card ai-hl-card ani d5" id="home-ai-card" style="cursor:pointer"></div>
+  </div>
+  </div>
   <div style="padding:0 16px;margin-bottom:8px"><button class="btn-s" id="h-review-btn" style="width:100%">&#128203; Weekly Review</button></div>
 </div>
 <div class="page" id="page-goals">
@@ -367,6 +443,7 @@ textarea.fi{resize:vertical;min-height:80px}
 </div>
 
 <nav id="nav">
+  <div class="nav-brand"><b>b<i>.</i>m &nbsp;BRAIN MAP OS</b><small>created by creativebee.app</small></div>
   <div class="nav-items">
     <div class="nav-item active" data-page="home" id="nav-home"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
     <div class="nav-item" data-page="goals" id="nav-goals"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span>Goals</span></div>
@@ -374,6 +451,18 @@ textarea.fi{resize:vertical;min-height:80px}
     <div class="nav-item" data-page="tasks" id="nav-tasks"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Tasks</span></div>
     <div class="nav-item" data-page="notes" id="nav-notes"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Notes</span></div>
     <div class="nav-item" data-page="ai" id="nav-ai"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg><span>AI</span></div>
+    <div class="nav-sep">More</div>
+    <div class="nav-item nav-more" data-page="habits" id="nav-habits"><i class="nav-emo">🔥</i><span>Habits</span></div>
+    <div class="nav-item nav-more" data-page="projects" id="nav-projects"><i class="nav-emo">🚀</i><span>Projects</span></div>
+    <div class="nav-item nav-more" data-page="finance" id="nav-finance"><i class="nav-emo">💰</i><span>Finance</span></div>
+    <div class="nav-item nav-more" data-page="journal" id="nav-journal"><i class="nav-emo">📖</i><span>Journal</span></div>
+    <div class="nav-item nav-more" data-page="vision" id="nav-vision"><i class="nav-emo">🌟</i><span>Vision Board</span></div>
+    <div class="nav-item nav-more" data-page="routines" id="nav-routines"><i class="nav-emo">⏰</i><span>Routines</span></div>
+    <div class="nav-item nav-more" data-page="areas" id="nav-areas"><i class="nav-emo">📊</i><span>Life Areas</span></div>
+    <div class="nav-item nav-more" data-page="achievements" id="nav-achievements"><i class="nav-emo">🏆</i><span>Achievements</span></div>
+    <div class="nav-item nav-more" data-page="review" id="nav-review"><i class="nav-emo">📋</i><span>Weekly Review</span></div>
+    <div class="nav-item nav-more" data-page="profile" id="nav-profile"><i class="nav-emo">👤</i><span>Profile</span></div>
+    <div class="nav-item nav-more" data-page="settings" id="nav-settings"><i class="nav-emo">⚙️</i><span>Settings</span></div>
   </div>
 </nav>
 
@@ -521,7 +610,7 @@ function showPage(name){
   document.querySelectorAll('.page').forEach(function(pg){pg.classList.remove('active');});
   var pg=ge('page-'+name);if(pg){pg.classList.add('active');pg.scrollTop=0;}
   S.currentPage=name;
-  ['home','goals','tasks','notes','ai'].forEach(function(n){var nav=ge('nav-'+n);if(nav)nav.classList.toggle('active',n===name);});
+  document.querySelectorAll('.nav-item[data-page]').forEach(function(n){n.classList.toggle('active',n.getAttribute('data-page')===name);});
   var renders={home:renderHome,goals:renderGoals,tasks:renderTasks,notes:renderNotes,ai:renderAI,habits:renderHabits,projects:renderProjects,finance:renderFinance,journal:renderJournal,vision:renderVision,achievements:renderAchievements,profile:renderProfile,settings:renderSettings,review:renderReview,areas:renderAreas,routines:renderRoutines};
   if(renders[name])renders[name]();
 }
