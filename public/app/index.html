@@ -12,6 +12,7 @@
 <meta name="theme-color" content="#050505">
 <title>Brain Map OS</title>
 <script src="/app/config.js"></script>
+<script src="/app/sync-core.js"></script>
 <script src="/app/vault.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -1251,6 +1252,7 @@ window.addEventListener('DOMContentLoaded',function(){
   Object.keys(adds).forEach(function(bid){var el=ge(bid);if(el)el.onclick=function(){openModal(adds[bid]);};});
   // Check onboarded
   window.BM_refresh=function(){loadState();updateAvatar();showPage(S.currentPage||'home');};
+  window.BM_reloadState=function(){loadState();};
   var ob0=ge('ob');if(ob0)ob0.style.display='none';
   Vault.boot(function(){if(DB.get('sb_profile')){initApp();}else{var ob=ge('ob');if(ob){ob.style.opacity='1';ob.style.display='flex';}}});
   // Greeting timer

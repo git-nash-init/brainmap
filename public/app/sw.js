@@ -1,6 +1,6 @@
 // Brain Map OS service worker: cache the app shell, network-first with offline fallback.
-const CACHE = "bm-app-v1";
-const SHELL = ["/app", "/app/vault.js", "/app/config.js", "/app/icon.svg", "/app/manifest.webmanifest"];
+const CACHE = "bm-app-v2";
+const SHELL = ["/app", "/app/vault.js", "/app/sync-core.js", "/app/config.js", "/app/icon.svg", "/app/manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

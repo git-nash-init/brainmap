@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import { Container } from "@/components/ui/Section";
-import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
+import { Reveal } from "@/components/ui/Reveal";
 import { CopyField } from "@/components/account/CopyField";
+import { TemplateBrowser } from "@/components/account/TemplateBrowser";
 import { ButtonLink } from "@/components/ui/Button";
 import { productsOf } from "@/lib/rel";
 
@@ -73,23 +73,7 @@ export default async function PurchasePage({ params }: PageProps<"/account/purch
       {(templates?.length ?? 0) > 0 && (
         <section className="mt-12">
           <Reveal><h2 className="font-display text-2xl font-extrabold">Your templates</h2><p className="mt-1 text-sm text-ink/60">Download the PDF, or open it in your browser to type into the fillable fields.</p></Reveal>
-          <Stagger className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" gap={0.04}>
-            {templates!.map((t) => (
-              <StaggerItem key={t.id}>
-                <div className="flex h-full flex-col rounded-2xl border border-line bg-white p-4 transition hover:-translate-y-1 hover:shadow-lg">
-                  <a href={`/api/templates/${t.id}/download?inline=1`} target="_blank" rel="noopener" aria-label={`Preview ${t.title}`} className="zoom-img relative block aspect-[4/3] overflow-hidden rounded-xl bg-mist">
-                    <Image src={`/templates-preview/${t.storage_path.split("/").pop()!.replace(/\.pdf$/i, "")}.jpg`} alt={`${t.title} template preview`} fill sizes="(min-width:1024px) 300px, (min-width:640px) 45vw, 90vw" className="object-cover" />
-                  </a>
-                  <p className="mt-3 text-[11px] font-bold uppercase tracking-wider text-brand">{t.category}</p>
-                  <h3 className="font-bold leading-snug">{t.title}</h3>
-                  <div className="mt-auto flex gap-2 pt-4">
-                    <a href={`/api/templates/${t.id}/download`} className="btn inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-ink text-xs font-bold uppercase tracking-wider text-white">Download</a>
-                    <a href={`/api/templates/${t.id}/download?inline=1`} target="_blank" rel="noopener" className="btn inline-flex h-10 flex-1 items-center justify-center rounded-lg border-2 border-ink text-xs font-bold uppercase tracking-wider">Edit</a>
-                  </div>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <TemplateBrowser templates={templates!} />
         </section>
       )}
       {!hasApp && (templates?.length ?? 0) === 0 && <p className="mt-10 rounded-2xl border border-dashed border-ink/30 p-8 text-center text-sm text-ink/60">Your files are being added. Please check back shortly or contact support.</p>}
