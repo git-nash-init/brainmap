@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MetaPixel } from "@/components/analytics/MetaPixel";
+import { MetaPixelOnHash } from "@/components/analytics/MetaPixelOnHash";
 import { BuyBox } from "@/components/shop/BuyBox";
 import { PhoneMockup } from "@/components/shop/PhoneMockup";
 import { TrustStrip } from "@/components/shop/TrustStrip";
@@ -41,7 +41,8 @@ const faqs = [
 export default function SecondBrainPage() {
   return (
     <>
-      <MetaPixel id="1574306130677438" />
+      {/* Meta Pixel: fires only for visitors arriving at /products/second-brain#buy (or pressing a button that jumps there) */}
+      <MetaPixelOnHash id="1574306130677438" hash="#buy" />
       <section className="relative overflow-hidden bg-ink text-white">
         <div className="pointer-events-none absolute -left-32 top-10 h-[420px] w-[420px] rounded-full bg-brand/30 blur-[120px]" />
         <div className="pointer-events-none absolute -right-32 bottom-0 h-[420px] w-[420px] rounded-full bg-alert/25 blur-[120px]" />
