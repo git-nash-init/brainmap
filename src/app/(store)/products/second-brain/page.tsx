@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MetaPixel } from "@/components/analytics/MetaPixel";
 import { BuyBox } from "@/components/shop/BuyBox";
 import { PhoneMockup } from "@/components/shop/PhoneMockup";
 import { TrustStrip } from "@/components/shop/TrustStrip";
@@ -40,6 +41,7 @@ const faqs = [
 export default function SecondBrainPage() {
   return (
     <>
+      <MetaPixel id="1574306130677438" />
       <section className="relative overflow-hidden bg-ink text-white">
         <div className="pointer-events-none absolute -left-32 top-10 h-[420px] w-[420px] rounded-full bg-brand/30 blur-[120px]" />
         <div className="pointer-events-none absolute -right-32 bottom-0 h-[420px] w-[420px] rounded-full bg-alert/25 blur-[120px]" />
