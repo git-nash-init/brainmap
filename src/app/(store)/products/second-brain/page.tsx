@@ -104,7 +104,8 @@ export default function SecondBrainPage() {
 
       <section id="buy" className="scroll-mt-28 py-20">
         <Container className="grid items-start gap-12 lg:grid-cols-2">
-          <Reveal>
+          {/* phones: buy box first, setup steps below it; desktop: steps left, buy box right */}
+          <Reveal className="order-2 lg:order-1">
             <SectionHeading center={false} eyebrow="Setup in minutes" title="From purchase to your first entry" />
             <ol className="space-y-5">
               {[
@@ -120,7 +121,7 @@ export default function SecondBrainPage() {
               ))}
             </ol>
           </Reveal>
-          <Reveal delay={0.1} className="rounded-3xl border border-line p-6 shadow-xl md:p-8">
+          <Reveal delay={0.1} className="order-1 rounded-3xl border border-line p-6 shadow-xl md:p-8 lg:order-2">
             <BuyBox product={secondBrain} kicker="Lifetime access" bullets={["🔐 Your own encrypted vault.", "📱 Works on phone, tablet and desktop."]} />
           </Reveal>
         </Container>

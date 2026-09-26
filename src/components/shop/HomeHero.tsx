@@ -29,12 +29,12 @@ export function HomeHero() {
           <h1 className="mt-6 font-display text-[clamp(2.6rem,7vw,5.4rem)] font-extrabold leading-[0.98] tracking-tight">
             <span className="block">
               {words.map((w, i) => (
-                <motion.span key={w + i} className="inline-block" initial={{ y: "100%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.15 + i * 0.09, duration: 0.7, ease: [0, 0, 0.3, 1] }}>{w}{" "}</motion.span>
+                <motion.span key={w + i} className="mr-[0.25em] inline-block" initial={{ y: "100%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.15 + i * 0.09, duration: 0.7, ease: [0, 0, 0.3, 1] }}>{w}{" "}</motion.span>
               ))}
             </span>
             <span className="block text-lime">
               {words2.map((w, i) => (
-                <motion.span key={w + i} className="inline-block" initial={{ y: "100%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.55 + i * 0.09, duration: 0.7, ease: [0, 0, 0.3, 1] }}>{w}{" "}</motion.span>
+                <motion.span key={w + i} className="mr-[0.25em] inline-block" initial={{ y: "100%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.55 + i * 0.09, duration: 0.7, ease: [0, 0, 0.3, 1] }}>{w}{" "}</motion.span>
               ))}
             </span>
           </h1>

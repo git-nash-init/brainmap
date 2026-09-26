@@ -27,8 +27,8 @@ export function StatRing({ value, size = 64 }: { value: number; size?: number })
   const r = 28;
   const c = 2 * Math.PI * r;
   return (
-    <div className="relative grid place-items-center" style={{ width: size, height: size }}>
-      <svg ref={ref} viewBox="0 0 64 64" className="absolute inset-0 -rotate-90">
+    <div className="relative grid shrink-0 place-items-center" style={{ width: size, height: size, minWidth: size }}>
+      <svg ref={ref} viewBox="0 0 64 64" className="absolute inset-0 h-full w-full -rotate-90">
         <circle cx="32" cy="32" r={r} fill="none" stroke="rgba(46,125,50,.15)" strokeWidth="5" />
         <circle
           cx="32" cy="32" r={r} fill="none" stroke="var(--green)" strokeWidth="5" strokeLinecap="round"
@@ -37,7 +37,7 @@ export function StatRing({ value, size = 64 }: { value: number; size?: number })
           style={{ transition: "stroke-dashoffset 1.6s cubic-bezier(0,0,.3,1)" }}
         />
       </svg>
-      <span className="text-[15px] font-bold text-brand">
+      <span className="relative text-[15px] font-bold leading-none tabular-nums text-brand">
         <CountUp to={value} suffix="%" />
       </span>
     </div>

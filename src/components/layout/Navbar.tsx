@@ -62,7 +62,7 @@ export function Navbar() {
       <header
         className={`sticky top-0 z-50 border-b bg-white/85 backdrop-blur-md transition-all duration-300 ${scrolled ? "border-line shadow-[0_6px_24px_-16px_rgba(0,0,0,.35)]" : "border-transparent"} ${hidden && !open && !search ? "-translate-y-full" : "translate-y-0"}`}
       >
-        <div className="mx-auto grid h-[72px] max-w-[1320px] grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 md:px-8 xl:h-[84px]">
+        <div className="mx-auto grid h-[72px] max-w-[1320px] grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 max-[359px]:px-2 sm:gap-3 md:px-8 xl:h-[84px]">
           {/* left: nav (desktop) / burger (mobile) */}
           <div className="flex items-center">
             <button

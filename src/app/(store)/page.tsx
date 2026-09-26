@@ -59,9 +59,9 @@ export default function Home() {
             <Stagger className="mt-4 divide-y divide-line border-y border-line">
               {stats.map((s) => (
                 <StaggerItem key={s.v}>
-                  <div className="flex items-center gap-5 py-4">
-                    <StatRing value={s.v} />
-                    <p className="text-[14px] text-ink/80">{s.t}</p>
+                  <div className="flex items-center gap-4 py-4 sm:gap-5">
+                    <StatRing value={s.v} size={72} />
+                    <p className="min-w-0 flex-1 text-[14px] leading-snug text-ink/80">{s.t}</p>
                   </div>
                 </StaggerItem>
               ))}
