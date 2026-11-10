@@ -1,3 +1,9 @@
+# Brainmap
+
+Planiton paper. Keep it in your brain.
+
+![Brainmap screenshot](docs/screenshots/brainmap.png)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
